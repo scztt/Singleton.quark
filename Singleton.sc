@@ -1,5 +1,5 @@
 Singleton {
-	classvar <>all, <>know=false, creatingNew=false;
+	classvar all, <>know=false, creatingNew=false;
 	var <>name;
 
 	*initClass {
@@ -59,6 +59,10 @@ Singleton {
 		} {
 			^this.superPerformList(\doesNotUnderstand, selector, args);
 		}
+	}
+
+	*all {
+		^all.atFail(this, IdentityDictionary());
 	}
 
 	init {}
