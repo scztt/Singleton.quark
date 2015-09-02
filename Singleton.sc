@@ -12,7 +12,7 @@ Singleton {
 
 	*new {
 		arg name ...settings;
-		var sing, classAll;
+		var sing, classAll, created=false;
 		name = name ?? this.default;
 
 		classAll = all.atFail(this, {
@@ -22,13 +22,14 @@ Singleton {
 
 		sing = classAll.atFail(name, {
 			var newSingleton = this.createNew();
+			created = true;
 			newSingleton.init(name);
 			newSingleton.name = name;
 			classAll[name] = newSingleton;
 			newSingleton;
 		});
 
-		if (settings.notNil && settings.notEmpty) { sing.set(*settings) };
+		if ((settings.notNil && settings.notEmpty) || created) { sing.set(*settings) };
 		^sing;
 	}
 
