@@ -30,6 +30,7 @@ Singleton {
 		});
 
 		if ((settings.notNil && settings.notEmpty) || created) { sing.set(*settings) };
+		if (created) { { this.changed(\added, sing) }.defer(0) };
 		^sing;
 	}
 
@@ -78,6 +79,7 @@ Singleton {
 			var key = dict.findKeyForValue(sing);
 			if (key.notNil) {
 				dict[key] = nil;
+				this.changed(\removed, sing);
 			}
 		}
 	}
