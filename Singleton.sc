@@ -23,9 +23,9 @@ Singleton {
 		sing = classAll.atFail(name, {
 			var newSingleton = this.createNew();
 			created = true;
-			newSingleton.init(name);
 			newSingleton.name = name;
 			classAll[name] = newSingleton;
+			newSingleton.init(name);
 			newSingleton;
 		});
 
