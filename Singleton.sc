@@ -1,5 +1,5 @@
 Singleton {
-	classvar <>all, <>know=false, creatingNew=false;
+	classvar all, <>know=false, creatingNew=false;
 	var <>name;
 
 	*initClass {
@@ -12,7 +12,7 @@ Singleton {
 
 	*new {
 		arg name ...settings;
-		var sing, classAll;
+		var sing, classAll, created=false;
 		name = name ?? this.default;
 
 		classAll = all.atFail(this, {
@@ -22,13 +22,15 @@ Singleton {
 
 		sing = classAll.atFail(name, {
 			var newSingleton = this.createNew();
-			newSingleton.init(name);
+			created = true;
 			newSingleton.name = name;
 			classAll[name] = newSingleton;
+			newSingleton.init(name);
 			newSingleton;
 		});
 
-		if (settings.notNil && settings.notEmpty) { sing.set(*settings) };
+		if ((settings.notNil && settings.notEmpty) || created) { sing.set(*settings) };
+		if (created) { { this.changed(\added, sing) }.defer(0) };
 		^sing;
 	}
 
@@ -60,6 +62,10 @@ Singleton {
 		}
 	}
 
+	*all {
+		^all.atFail(this, IdentityDictionary());
+	}
+
 	init {}
 
 	set {
@@ -73,6 +79,7 @@ Singleton {
 			var key = dict.findKeyForValue(sing);
 			if (key.notNil) {
 				dict[key] = nil;
+				this.changed(\removed, sing);
 			}
 		}
 	}
