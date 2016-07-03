@@ -33,7 +33,9 @@ Singleton {
 			newSingleton;
 		});
 
-		if ((settings.notNil && settings.notEmpty) || created) { sing.set(*settings) };
+		if ((settings.notNil && settings.notEmpty) || created) {
+			sing.set(*settings)
+		};
 		if (created) { { this.changed(\added, sing) }.defer(0) };
 		^sing;
 	}
