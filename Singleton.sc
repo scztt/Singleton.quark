@@ -1,5 +1,5 @@
 Singleton {
-	classvar <all, <>know=false, creatingNew=false;
+	classvar all, <>know=false, creatingNew=false;
 	var <>name;
 
 	*initClass {
@@ -8,6 +8,10 @@ Singleton {
 
 	*default {
 		^\default
+	}
+
+	*all {
+		^all[this] ?? IdentityDictionary()
 	}
 
 	*new {
