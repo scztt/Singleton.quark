@@ -17,7 +17,12 @@ Singleton {
 	*new {
 		arg name ...settings;
 		var sing, classAll, created=false;
+
 		name = name ?? this.default;
+
+		if (name.isString) {
+			name = name.isSymbol;
+		};
 
 		classAll = all.atFail(this, {
 			all[this] = IdentityDictionary();
