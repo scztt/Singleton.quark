@@ -94,4 +94,10 @@ Singleton {
 	clear {
 		this.class.clear(this);
 	}
+
+	printOn {
+		|stream|
+		stream << "%('%')".format(this.class.name, name)
+	}
+
 }
