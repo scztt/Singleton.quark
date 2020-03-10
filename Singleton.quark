@@ -4,7 +4,7 @@
         author: "scott@artificia.org",
      copyright: "Frank Scott Carver, 2013",
        license: "MIT",
-       version: "1.0.3",
+       version: "1.0.4",
         schelp: "Singleton",
           test: "Test/Singleton_unittest.scd",
            url: "https://github.com/scztt/singleton.quark",
