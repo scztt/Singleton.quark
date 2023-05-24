@@ -14,6 +14,21 @@ Singleton {
 		^all[this] ?? IdentityDictionary()
 	}
 
+	*at {
+		|name|
+		^this.new(name);
+	}
+
+	*put {
+		|name, value|
+		^this.new(name, value)
+	}
+
+	*removeAt {
+		|key|
+		^this.clearItem(key)
+	}
+
 	*new {
 		arg name ...settings;
 		var sing, classAll, created=false;
@@ -72,6 +87,19 @@ Singleton {
 		}
 	}
 
+	*use {
+		|function|
+		var envir, singleton;
+
+		this.beforeUse();
+		protect {
+			EnvironmentRedirect(this).use(function)
+		} {
+			|e|
+			this.afterUse();
+		}
+	}
+
 	*makeName {
 		|selector|
 		if (selector.isKindOf(String)) {
@@ -85,6 +113,12 @@ Singleton {
 	}
 
 	// Overridable interfaces
+	*beforeUse {}
+	*afterUse {}
+
+	init {
+		|name|
+	}
 
 	set {
 		|...settings|
