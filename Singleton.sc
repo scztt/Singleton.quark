@@ -18,11 +18,7 @@ Singleton {
 		arg name ...settings;
 		var sing, classAll, created=false;
 
-		name = name ?? this.default;
-
-		if (name.isString) {
-			name = name.isSymbol;
-		};
+		name = this.makeName(name);
 
 		classAll = all.atFail(this, {
 			all[this] = IdentityDictionary();
@@ -73,7 +69,19 @@ Singleton {
 		}
 	}
 
-	init {}
+	*makeName {
+		|selector|
+		if (selector.isKindOf(String)) {
+			selector = selector.asSymbol;
+		};
+		if (selector.isKindOf(Array)) {
+			selector = selector.join("_").asSymbol;
+		};
+
+		^(selector ?? { this.default })
+	}
+
+	// Overridable interfaces
 
 	set {
 		|...settings|
