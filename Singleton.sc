@@ -79,7 +79,7 @@ Singleton {
 		// Override this to receive 'settings' parameter from Singleton.new(name, settings)
 	}
 
-	*clear {
+	*clearItem {
 		|sing|
 		var dict = all[this];
 		if (dict.notNil) {
@@ -91,13 +91,19 @@ Singleton {
 		}
 	}
 
+	*clear {
+		var dict = all[this];
+		if (dict.notNil) {
+			dict.values.do(_.clear())
+		}
+	}
+
 	clear {
-		this.class.clear(this);
+		this.class.clearItem(this);
 	}
 
 	printOn {
 		|stream|
 		stream << "%('%')".format(this.class.name, name)
 	}
-
 }
