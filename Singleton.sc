@@ -1,6 +1,6 @@
 Singleton {
 	classvar all, <>know=false, creatingNew=false;
-	var <>name;
+	var <>name, <>definitionFilename;
 
 	*initClass {
 		all = IdentityDictionary();
@@ -35,9 +35,12 @@ Singleton {
 		});
 
 		if ((settings.notNil && settings.notEmpty) || created) {
-			sing.set(*settings)
+			sing.set(*settings);
+			sing.definitionFilename = thisProcess.nowExecutingPath.asSymbol;
 		};
+
 		if (created) { { this.changed(\added, sing) }.defer(0) };
+
 		^sing;
 	}
 
