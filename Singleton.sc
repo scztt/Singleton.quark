@@ -76,6 +76,7 @@ Singleton {
 	init {}
 
 	set {
+		|...settings|
 		// Override this to receive 'settings' parameter from Singleton.new(name, settings)
 	}
 
